@@ -179,13 +179,12 @@ export async function getExecutionLogs(
   const script = getAppsScriptService();
 
   const response = await script.processes.list({
-    userProcessFilter: {
-      scriptId,
-    },
+    "userProcessFilter.scriptId": scriptId,
     pageSize: limit,
   });
 
-  return (response.data.processes || []).map((process) => ({
+  const processes = response.data.processes || [];
+  return processes.map((process: script_v1.Schema$GoogleAppsScriptTypeProcess) => ({
     processId: process.processId || "",
     functionName: process.functionName || "unknown",
     startTime: process.startTime || "",
@@ -253,7 +252,6 @@ export async function deployHead(scriptId: string): Promise<string> {
       requestBody: {
         deploymentConfig: {
           description: "@HEAD",
-          scriptId,
         },
       },
     });
@@ -264,10 +262,8 @@ export async function deployHead(scriptId: string): Promise<string> {
   const response = await script.projects.deployments.create({
     scriptId,
     requestBody: {
-      deploymentConfig: {
-        description: "@HEAD",
-        scriptId,
-      },
+      versionNumber: 0, // 0 means HEAD
+      description: "@HEAD",
     },
   });
 
