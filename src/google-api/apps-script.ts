@@ -184,13 +184,14 @@ export async function getExecutionLogs(
   });
 
   const processes = response.data.processes || [];
-  return processes.map((process: script_v1.Schema$GoogleAppsScriptTypeProcess) => ({
-    processId: process.processId || "",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return processes.map((process: any) => ({
+    processId: process.processId || process.name || "",
     functionName: process.functionName || "unknown",
     startTime: process.startTime || "",
     duration: process.duration || "0s",
-    status: process.processStatus || "UNKNOWN",
-    error: process.error?.message,
+    status: process.processStatus || process.state || "UNKNOWN",
+    error: process.error?.message || process.error?.errorMessage,
   }));
 }
 
