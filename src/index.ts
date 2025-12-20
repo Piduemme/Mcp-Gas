@@ -19,6 +19,11 @@ import {
 import { listFunctionsTool, runFunctionTool } from "./tools/execute.js";
 import { getLogsTool } from "./tools/logs.js";
 import { listDeploymentsTool, deployTool } from "./tools/deploy.js";
+import {
+  setupServiceAccountTool,
+  checkServiceAccountTool,
+} from "./tools/service-account.js";
+import { getCloudLogsTool } from "./tools/cloud-logs.js";
 
 // All available tools
 const tools = [
@@ -34,6 +39,10 @@ const tools = [
   getLogsTool,
   listDeploymentsTool,
   deployTool,
+  // Cloud Logging tools
+  setupServiceAccountTool,
+  checkServiceAccountTool,
+  getCloudLogsTool,
 ];
 
 // Create MCP server
