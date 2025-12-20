@@ -3,3 +3,6 @@ dist/
 .env
 *.log
 .DS_Store
+
+# Service account credentials (sensitive!)
+service-account.json
